@@ -6,6 +6,7 @@ name: runner-hello
 steps:
 - name: hello
   image: alpine
+  pull: if-not-exists
   commands:
     - echo "hello from k8s drone"
     - uname -a
@@ -29,20 +30,24 @@ name: go-hello
 steps:
 - name: test
   image: golang
+  pull: if-not-exists
   volumes:
   - name: deps
     path: /go
   commands:
+    - cd ./go/
     - echo "---- go test"
     - go test
     - ls -l /go
     - du -h -d1 /go
 - name: build
   image: golang
+  pull: if-not-exists
   volumes:
   - name: deps
     path: /go
   commands:
+    - cd ./go/
     - echo "---- go build"
     - go build
     - du -h -d1 /go
