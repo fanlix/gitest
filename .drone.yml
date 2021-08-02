@@ -40,6 +40,8 @@ steps:
     - go test
     - ls -l /go
     - du -h -d1 /go
+    - date >> /go/date.txt
+
 - name: build
   image: golang
   pull: if-not-exists
@@ -50,6 +52,7 @@ steps:
     - cd ./go/
     - echo "---- go build"
     - go build
+    - cat /go/date.txt
     - du -h -d1 /go
     - ls -l go*
 
