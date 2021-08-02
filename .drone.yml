@@ -94,7 +94,7 @@ steps:
     base_url: "https://git.yq16.fun/"
     api_key:
       from_secret: drone-fx-token
-    files: "./hello*"
+    files: "./go/hello*"
     title: "New Release"
     note: "note here"
     prerelease: true
