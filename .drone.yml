@@ -91,14 +91,18 @@ steps:
 - name: release
   image: plugins/gitea-release
   settings:
-    base_url: https://git.yq16.fun/
+    base_url: "https://git.yq16.fun/"
     api_key:
       from_secret: gitea-fx-token
-    files: ./hello*
+    files: "./hello*"
     title: "New Release"
     note: "note here"
+    prerelease: true
+    checksum:
+      - md5
+      - sha256
   when:
-    event: push
+    event: tag
 
 volumes:
 - name: go-cache
