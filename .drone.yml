@@ -88,6 +88,18 @@ steps:
     - make
     - ls -l hello*
 
+- name: release
+  image: plugins/gitea-release
+  settings:
+    base_url: https://git.yq16.fun/
+    api_key:
+      from_secret: gitea-fx-token
+    files: ./hello*
+    title: "New Release"
+    note: "note here"
+  when:
+    event: push
+
 volumes:
 - name: go-cache
   claim:
