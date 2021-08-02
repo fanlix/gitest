@@ -7,7 +7,7 @@ test:
 	go test
 
 build:
-	go build -o $TARGET
+	go build -o ${TARGET}
 
 clean:
-	rm -f $TARGET
+	rm -f ${TARGET}
