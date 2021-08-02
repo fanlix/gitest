@@ -1,11 +1,10 @@
 ---
 kind: pipeline
 type: kubernetes
-name: runner-arm
+name: runner
 
 platform:
   os: linux
-  arch: arm
 
 steps:
 - name: hello
@@ -25,41 +24,41 @@ trigger:
   event:
     - push
 
----
-kind: pipeline
-type: docker
-name: runner-amd
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: hello
-  image: alpine
-  commands:
-    - echo "hello from k8s drone"
-    - uname -a
-    - echo "KEY=123" > .env.sh
-- name: finish
-  image: alpine
-  commands:
-    - source .env.sh
-    - echo "finish"
-    - echo $KEY
-
-trigger:
-  event:
-    - push
+#---
+#kind: pipeline
+#type: docker
+#name: runner-amd
+#
+#platform:
+#  os: linux
+#  arch: amd64
+#
+#steps:
+#- name: hello
+#  image: alpine
+#  commands:
+#    - echo "hello from k8s drone"
+#    - uname -a
+#    - echo "KEY=123" > .env.sh
+#- name: finish
+#  image: alpine
+#  commands:
+#    - source .env.sh
+#    - echo "finish"
+#    - echo $KEY
+#
+#trigger:
+#  event:
+#    - push
 
 ---
 kind: pipeline
 type: kubernetes
-name: runner-kube-arm
+name: runner-kube-amd
 
 platform:
   os: linux
-  arch: arm
+  #arch: arm
 
 steps:
   - name: docker-test
