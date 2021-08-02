@@ -51,33 +51,33 @@ trigger:
 #  event:
 #    - push
 
----
-kind: pipeline
-type: kubernetes
-name: runner-kube-amd
-
-platform:
-  os: linux
-  #arch: arm
-
-steps:
-  - name: docker-test
-    image: docker:dind
-    privileged: true
-    volumes:
-      - name: docker-sock
-        path: /var/run
-        #path: /var/run/docker.sock
-        #subPath: docker.sock
-    commands:
-      - docker --version
-      #- ping 127.0.0.1
-      - docker pull hello-world
-      - docker run --rm hello-world
-      - docker ps -a
-volumes:
-  - name: docker-sock
-    host:
-      path: /var/run/
-      #path: /var/run/docker.sock  
-      #type: Socket
+#---
+#kind: pipeline
+#type: kubernetes
+#name: runner-kube-amd
+#
+#platform:
+#  os: linux
+#  #arch: arm
+#
+#steps:
+#  - name: docker-test
+#    image: docker:dind
+#    privileged: true
+#    volumes:
+#      - name: docker-sock
+#        path: /var/run
+#        #path: /var/run/docker.sock
+#        #subPath: docker.sock
+#    commands:
+#      - docker --version
+#      #- ping 127.0.0.1
+#      - docker pull hello-world
+#      - docker run --rm hello-world
+#      - docker ps -a
+#volumes:
+#  - name: docker-sock
+#    host:
+#      path: /var/run/
+#      #path: /var/run/docker.sock  
+#      #type: Socket
