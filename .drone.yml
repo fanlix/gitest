@@ -93,7 +93,7 @@ steps:
   settings:
     base_url: "https://git.yq16.fun/"
     api_key:
-      from_secret: gitea-fx-token
+      from_secret: drone-fx-token
     files: "./hello*"
     title: "New Release"
     note: "note here"
