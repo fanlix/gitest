@@ -1,10 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: runner
-
-platform:
-  os: linux
+name: runner-hello
 
 steps:
 - name: hello
@@ -24,60 +21,33 @@ trigger:
   event:
     - push
 
-#---
-#kind: pipeline
-#type: docker
-#name: runner-amd
-#
-#platform:
-#  os: linux
-#  arch: amd64
-#
-#steps:
-#- name: hello
-#  image: alpine
-#  commands:
-#    - echo "hello from k8s drone"
-#    - uname -a
-#    - echo "KEY=123" > .env.sh
-#- name: finish
-#  image: alpine
-#  commands:
-#    - source .env.sh
-#    - echo "finish"
-#    - echo $KEY
-#
-#trigger:
-#  event:
-#    - push
+---
+kind: pipeline
+type: kubernetes
+name: go-hello
 
-#---
-#kind: pipeline
-#type: kubernetes
-#name: runner-kube-amd
-#
-#platform:
-#  os: linux
-#  #arch: arm
-#
-#steps:
-#  - name: docker-test
-#    image: docker:dind
-#    privileged: true
-#    volumes:
-#      - name: docker-sock
-#        path: /var/run
-#        #path: /var/run/docker.sock
-#        #subPath: docker.sock
-#    commands:
-#      - docker --version
-#      #- ping 127.0.0.1
-#      - docker pull hello-world
-#      - docker run --rm hello-world
-#      - docker ps -a
-#volumes:
-#  - name: docker-sock
-#    host:
-#      path: /var/run/
-#      #path: /var/run/docker.sock  
-#      #type: Socket
+steps:
+- name: test
+  image: golang
+  volumes:
+  - name: deps
+    path: /go
+  commands:
+    - echo "---- go test"
+    - go test
+    - ls -l /go
+    - du -h -d1 /go
+- name: build
+  image: golang
+  volumes:
+  - name: deps
+    path: /go
+  commands:
+    - echo "---- go build"
+    - go build
+    - du -h -d1 /go
+    - ls -l go*
+
+volumes:
+- name: deps
+  temp: {}
