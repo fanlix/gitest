@@ -56,6 +56,15 @@ steps:
     - du -h -d1 /go
     - ls -l go*
 
+- name: make
+  image: golang
+  pull: if-not-exists
+  commands:
+    - cd ./go/
+    - make
+    - ls -l hello*
+
+
 volumes:
 - name: deps
   temp: {}
