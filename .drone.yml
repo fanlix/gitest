@@ -64,7 +64,31 @@ steps:
     - make
     - ls -l hello*
 
-
 volumes:
 - name: deps
   temp: {}
+
+---
+kind: pipeline
+type: kubernetes
+name: go-hello-vcache
+
+steps:
+- name: build
+  image: golang
+  pull: if-not-exists
+  volumes:
+  - name: go-cache
+    path: /go
+  commands:
+    - tail -1 /go/last-modify.txt
+    - date >> /go/last-modify.txt
+    - cd ./go/
+    - echo "---- go build"
+    - make
+    - ls -l hello*
+
+volumes:
+- name: go-cache
+  claim:
+    name: drone-go-cache-pvc
