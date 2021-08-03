@@ -87,6 +87,15 @@ steps:
     - echo "---- go build"
     - make
     - ls -l hello*
+    - mkdir -p ../dist/
+
+- name: upx
+  image: cnbattle/drone-upx
+  settings:
+    save_file: ./dist/hello
+    original_file: ./go/hello
+  when:
+    event: tag
 
 - name: release
   image: plugins/gitea-release
@@ -94,13 +103,13 @@ steps:
     base_url: "https://git.yq16.fun/"
     api_key:
       from_secret: drone-fx-token
-    files: "./go/hello*"
+    #files: "./go/hello*"
+    files: "./dist/hello*"
     title: "New Release"
     note: "note here"
     prerelease: true
     checksum:
       - md5
-      - sha256
   when:
     event: tag
 
