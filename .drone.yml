@@ -87,7 +87,21 @@ steps:
     - echo "---- go build"
     - make
     - ls -l hello*
-    - mkdir -p ../dist/
+
+- name: note
+  image: golang
+  pull: if-not-exists
+  commands:
+    - mkdir -p ./dist/
+    - |
+      echo "# Release ${DRONE_TAG}:
+      ### ${DRONE_COMMIT_MESSAGE}
+      * go= $(go version)
+      * date= $(date '+%Y-%m-%d %H:%M:%S')
+      * docker= harbor.yq16.fun/test/gitest:${DRONE_TAG}
+      " > ./dist/release-note.md
+  when:
+    event: tag
 
 - name: upx
   image: cnbattle/drone-upx
@@ -97,21 +111,6 @@ steps:
   when:
     event: tag
 
-- name: release
-  image: plugins/gitea-release
-  settings:
-    base_url: "https://git.yq16.fun/"
-    api_key:
-      from_secret: drone-fx-token
-    #files: "./go/hello*"
-    files: "./dist/hello*"
-    title: "New Release"
-    note: "note here"
-    prerelease: true
-    checksum:
-      - md5
-  when:
-    event: tag
 
 - name: docker-image
   image: banzaicloud/drone-kaniko
@@ -128,6 +127,22 @@ steps:
       - ${DRONE_TAG}
   when:
     event: tag
+
+- name: release
+  image: plugins/gitea-release
+  settings:
+    base_url: "https://git.yq16.fun/"
+    api_key:
+      from_secret: drone-fx-token
+    files: "./dist/hello*"
+    title: "Release ${DRONE_TAG}"
+    note: "./dist/release-note.md"
+    prerelease: true
+    checksum:
+      - md5
+  when:
+    event: tag
+
 
 volumes:
 - name: go-cache
