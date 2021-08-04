@@ -1,8 +1,8 @@
 FROM alpine
-RUN mkdir -p /data
-WORKDIR /app
 ENV VVV gitest-docker
-COPY dist/hello .
+RUN mkdir -p /app
+COPY dist/hello /app/
+WORKDIR /app
 RUN ls -lh . && md5sum ./hello
 
 ENTRYPOINT ["hello"]
