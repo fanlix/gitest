@@ -124,6 +124,8 @@ steps:
     tags:
       - v1
       - haha
+  when:
+    event: tag
 
 volumes:
 - name: go-cache
