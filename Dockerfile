@@ -5,5 +5,5 @@ COPY dist/hello /app/
 WORKDIR /app
 RUN ls -lh . && md5sum ./hello
 
-ENTRYPOINT ["hello"]
+ENTRYPOINT ["./hello"]
 CMD ["abc"]

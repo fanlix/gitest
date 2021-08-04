@@ -124,6 +124,7 @@ steps:
     tags:
       - v1
       - haha
+      - ${DRONE_TAG}
   when:
     event: tag
 
