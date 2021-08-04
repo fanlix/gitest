@@ -4,5 +4,6 @@ WORKDIR /app
 ENV VVV gitest-docker
 COPY dist/hello .
 RUN ls -lh . && md5sum ./hello
-ETRYPOINT ["hello"]
+
+ENTRYPOINT ["hello"]
 CMD ["abc"]

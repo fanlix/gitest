@@ -120,6 +120,7 @@ steps:
     repo: test/gitest
     registry: harbor.yq16.fun
     tags:
+      - v1
       - haha
 
 volumes:
