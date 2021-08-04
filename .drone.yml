@@ -113,6 +113,15 @@ steps:
   when:
     event: tag
 
+- name: docker-image
+  image: banzaicloud/drone-kaniko
+  settings:
+    dockerfile: Dockerfile
+    repo: test/gitest
+    registry: harbor.yq16.fun
+    tags:
+      - haha
+
 volumes:
 - name: go-cache
   claim:
