@@ -117,8 +117,10 @@ steps:
   image: banzaicloud/drone-kaniko
   settings:
     dockerfile: Dockerfile
-    repo: test/gitest
+    username: "robot$testbot"
+    password: "ccsyi094AQK3e9Y89jCHglqR1ZsXGRpv"
     registry: harbor.yq16.fun
+    repo: test/gitest
     tags:
       - v1
       - haha
