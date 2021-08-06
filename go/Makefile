@@ -2,14 +2,17 @@
 TARGET=hello
 DIST=../dist
 
-all: test build
+all: test build dist
 
 test:
 	go test
 
 build:
+	go build -o ${TARGET}
+
+dist:
 	mkdir -p ${DIST}
-	go build -o ${DIST}/${TARGET}
+	cp ${TARGET} ${DIST}/
 
 clean:
-	rm -f ${DIST}/${TARGET}
+	rm -f ${TARGET}
