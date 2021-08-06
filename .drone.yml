@@ -92,7 +92,6 @@ steps:
   image: golang
   pull: if-not-exists
   commands:
-    - mkdir -p ./dist/
     - |
       echo "# Release ${DRONE_TAG}:
       ### ${DRONE_COMMIT_MESSAGE}
@@ -100,6 +99,8 @@ steps:
       * date= $(date '+%Y-%m-%d %H:%M:%S')
       * docker= harbor.yq16.fun/test/gitest:${DRONE_TAG}
       " > ./dist/release-note.md
+    # upx cant save to exist file
+    - rm ./dist/hello
   when:
     event: tag
 
