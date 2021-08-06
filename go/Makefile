@@ -8,7 +8,7 @@ test:
 	go test
 
 build:
-	go build -o ${TARGET}
+	CGO_ENABLED=0 go build -ldflags "-w -s" -o ${TARGET}
 
 dist:
 	mkdir -p ${DIST}
