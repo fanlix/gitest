@@ -1,5 +1,6 @@
 
 TARGET=hello
+DIST=../dist
 
 all: test build
 
@@ -7,7 +8,8 @@ test:
 	go test
 
 build:
-	go build -o ${TARGET}
+	mkdir -p ${DIST}
+	go build -o ${DIST}/${TARGET}
 
 clean:
-	rm -f ${TARGET}
+	rm -f ${DIST}/${TARGET}
