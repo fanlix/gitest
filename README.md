@@ -29,3 +29,8 @@
     docker pull harbor.yq16.fun/test/gitest
 	docker run --rm -p 8888:8080 -it harbor.yq16.fun/test/gitest
     ```
+
+### test helm
+```
+helm install -n test gtest ./chart/
+```
