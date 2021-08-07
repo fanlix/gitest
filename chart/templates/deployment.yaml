@@ -47,6 +47,15 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
+          volumeMounts:
+            - name: data
+              mountPath: "{{ .Values.persistence.mountPath | default /www }}"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
