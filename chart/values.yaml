@@ -83,5 +83,5 @@ affinity: {}
 
 persistence:
   enabled: false
-  existingClaim: ""
+  existingClaim: "xxx-pvc"
   mountPath: "/www"
