@@ -50,7 +50,7 @@ spec:
       {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
           volumeMounts:
             - name: data
-              mountPath: "{{ .Values.persistence.mountPath | default /www }}"
+              mountPath: "{{ .Values.persistence.mountPath | default '/www' }}"
       volumes:
         - name: data
           persistentVolumeClaim:
